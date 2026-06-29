@@ -709,46 +709,88 @@
       /* ══════════════════════════════════════════════════════
    REPORTS EXPLORER
 ══════════════════════════════════════════════════════ */
-      .rpt-filter-panel {
-        background: #1a1f2e;
-        border: 1px solid #252b3b;
-        border-radius: 12px;
-        padding: 18px;
-        margin-bottom: 18px;
+      /* ── Page header ── */
+      .rpt-page-header {
+        margin-bottom: 24px;
       }
-      .rpt-filter-grid {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr 0.85fr 0.85fr auto;
-        gap: 14px;
-        align-items: end;
+      .rpt-page-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 28px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+      }
+      .rpt-page-title i {
+        font-size: 28px;
+        color: #3b82f6;
+      }
+      .rpt-page-sub {
+        font-size: 14px;
+        color: #64748b;
+        margin-left: 40px;
+      }
+
+      /* ── Filter bar ── */
+      .rpt-filter-bar {
+        background: #151a27;
+        border: 1px solid #1e2535;
+        border-radius: 14px;
+        padding: 20px 24px;
+        display: flex;
+        align-items: flex-end;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
       }
       .rpt-field {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 7px;
         min-width: 0;
+        flex: 1;
       }
+      .rpt-field.rpt-field-wide { flex: 1.6; }
+      .rpt-field.rpt-field-mid  { flex: 1.2; }
+      .rpt-field.rpt-field-date { flex: 0.9; min-width: 140px; }
       .rpt-field label {
-        font-size: 12px;
-        font-weight: 600;
-        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #64748b;
         display: flex;
         align-items: center;
         gap: 6px;
+        white-space: nowrap;
       }
-      .rpt-field label i {
+      .rpt-field label i { font-size: 13px; }
+      .rpt-field select,
+      .rpt-field input[type="date"] {
+        background: #0f1117;
+        border: 1px solid #252b3b;
+        border-radius: 8px;
+        color: #fff;
+        font-family: "Inter", sans-serif;
         font-size: 14px;
-        color: #94a3b8;
+        padding: 10px 12px;
+        outline: none;
+        width: 100%;
+        transition: border-color 0.15s;
+        appearance: auto;
       }
-      .rpt-field select.filter-select,
-      .rpt-field input.filter-select {
-        padding: 9px 10px;
-        font-size: 14px;
-      }
-      .rpt-actions {
+      .rpt-field select:focus,
+      .rpt-field input[type="date"]:focus { border-color: #3b82f6; }
+      .rpt-field select option { background: #1a1f2e; }
+
+      /* ── Action buttons ── */
+      .rpt-bar-actions {
         display: flex;
+        align-items: flex-end;
         gap: 10px;
-        align-items: center;
+        flex-shrink: 0;
       }
       .rpt-btn {
         display: inline-flex;
@@ -758,36 +800,28 @@
         font-size: 14px;
         font-weight: 600;
         font-family: "Inter", sans-serif;
-        padding: 9px 16px;
+        padding: 10px 18px;
         cursor: pointer;
         white-space: nowrap;
-        transition:
-          background 0.15s,
-          transform 0.1s,
-          border-color 0.15s;
+        border: none;
+        transition: background 0.15s, transform 0.1s;
       }
-      .rpt-btn:active {
-        transform: scale(0.97);
-      }
-      .rpt-btn-outline {
+      .rpt-btn:active { transform: scale(0.97); }
+      .rpt-btn-print {
         background: #1a1f2e;
         border: 1px solid #252b3b;
-        color: #fff;
+        color: #e2e8f0;
       }
-      .rpt-btn-outline:hover {
-        border-color: #3b82f6;
-      }
-      .rpt-btn-primary {
+      .rpt-btn-print:hover { border-color: #3b82f6; color: #fff; }
+      .rpt-btn-export {
         background: #3b82f6;
-        border: none;
         color: #fff;
-      }
-      .rpt-btn-primary:hover {
-        background: #2563eb;
-      }
-      .rpt-export-wrap {
         position: relative;
       }
+      .rpt-btn-export:hover { background: #2563eb; }
+
+      /* ── Export dropdown ── */
+      .rpt-export-wrap { position: relative; }
       .rpt-export-menu {
         display: none;
         position: absolute;
@@ -798,12 +832,10 @@
         border-radius: 10px;
         padding: 6px;
         min-width: 180px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         z-index: 50;
       }
-      .rpt-export-menu.open {
-        display: block;
-      }
+      .rpt-export-menu.open { display: block; }
       .rpt-export-item {
         display: flex;
         align-items: center;
@@ -815,25 +847,95 @@
         cursor: pointer;
         transition: background 0.12s;
       }
-      .rpt-export-item i {
-        font-size: 16px;
+      .rpt-export-item i { font-size: 16px; color: #94a3b8; width: 16px; }
+      .rpt-export-item:hover { background: #252b3b; }
+      .rpt-export-item:hover i { color: #3b82f6; }
+
+      /* ── Report card ── */
+      .rpt-card {
+        background: #151a27;
+        border: 1px solid #1e2535;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .rpt-card-header {
+        padding: 20px 24px 14px;
+        border-bottom: 1px solid #1e2535;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+      .rpt-card-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+      .rpt-card-meta {
+        font-size: 12px;
+        color: #475569;
+      }
+      .rpt-card-generated {
+        font-size: 12px;
+        color: #475569;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* ── Report table ── */
+      .rpt-table-wrap { overflow-x: auto; }
+      .rpt-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        min-width: 700px;
+      }
+      .rpt-table thead tr {
+        border-bottom: 1px solid #1e2535;
+      }
+      .rpt-table thead th {
+        padding: 12px 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #475569;
+        text-align: left;
+        background: transparent;
+        white-space: nowrap;
+      }
+      .rpt-table tbody tr {
+        border-bottom: 1px solid rgba(30,37,53,0.8);
+        transition: background 0.12s;
+      }
+      .rpt-table tbody tr:last-child { border-bottom: none; }
+      .rpt-table tbody tr:hover { background: rgba(59,130,246,0.04); }
+      .rpt-table tbody td {
+        padding: 14px 20px;
         color: #94a3b8;
-        width: 16px;
+        vertical-align: middle;
       }
-      .rpt-export-item:hover {
-        background: #252b3b;
+      .rpt-table tbody td.rpt-td-bold {
+        color: #fff;
+        font-weight: 700;
       }
-      .rpt-export-item:hover i {
-        color: #3b82f6;
+      .rpt-table tbody td.rpt-td-cat {
+        color: #60a5fa;
       }
-      @media (max-width: 1100px) {
-        .rpt-filter-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .rpt-actions {
-          grid-column: 1/-1;
-          justify-content: flex-end;
-        }
+      .rpt-empty {
+        text-align: center;
+        padding: 48px 20px;
+        color: #334155;
+        font-size: 14px;
+      }
+      .rpt-empty i { font-size: 32px; display: block; margin-bottom: 8px; }
+
+      @media (max-width: 900px) {
+        .rpt-filter-bar { flex-direction: column; align-items: stretch; }
+        .rpt-bar-actions { justify-content: flex-end; }
+        .rpt-field.rpt-field-wide,
+        .rpt-field.rpt-field-mid,
+        .rpt-field.rpt-field-date { flex: 1 1 100%; }
       }
 
       /* ══════════════════════════════════════════════════════
@@ -1844,47 +1946,53 @@ textarea.field-inp{resize:vertical;min-height:80px}
 
           <!-- ══════════════ REPORTS EXPLORER VIEW ══════════════ -->
           <div id="reports-view" class="view-hidden">
-            <div class="page-title">Reports Explorer</div>
-            <div class="page-sub">Generate, filter and export labour allocation reports</div>
 
-            <!-- Filter Panel -->
-            <div class="rpt-filter-panel">
-              <div class="rpt-filter-grid">
-                <div class="rpt-field">
-                  <label><i class="ti ti-layout-list"></i> Report Template</label>
-                  <select id="rpt-template" class="filter-select" onchange="renderReportTable()">
-                    <option value="so">Sales Order Wise</option>
-                    <option value="emp">Employee Wise</option>
-                    <option value="dept">Department Wise</option>
-                  </select>
-                </div>
-                <div class="rpt-field">
-                  <label><i class="ti ti-filter"></i> Sales Order</label>
-                  <select id="rpt-so-filter" class="filter-select" onchange="renderReportTable()">
-                    <option value="all">All Orders</option>
-                    <option value="SO-2026-001">SO-2026-001 — Tata Motors</option>
-                    <option value="SO-2026-002">SO-2026-002 — L&amp;T Heavy Engg.</option>
-                    <option value="SO-2026-003">SO-2026-003 — BHEL Systems</option>
-                    <option value="SO-2026-004">SO-2026-004 — Mahindra Forge</option>
-                    <option value="SO-2026-005">SO-2026-005 — Kirloskar Pumps</option>
-                  </select>
-                </div>
-                <div class="rpt-field">
-                  <label><i class="ti ti-calendar"></i> From Date</label>
-                  <input type="date" id="rpt-start-date" class="filter-select" onchange="renderReportTable()" />
-                </div>
-                <div class="rpt-field">
-                  <label><i class="ti ti-calendar"></i> To Date</label>
-                  <input type="date" id="rpt-end-date" class="filter-select" onchange="renderReportTable()" />
-                </div>
+            <!-- Page Header -->
+            <div class="rpt-page-header">
+              <div class="rpt-page-title">
+                <i class="ti ti-file-analytics"></i>
+                Real-Time Labour Costing
               </div>
-              <div class="rpt-actions">
-                <button class="rpt-btn rpt-btn-outline" onclick="printReport()">
-                  <i class="ti ti-printer"></i> Print
+              <div class="rpt-page-sub">Manufacturing Floor Resource Utilization &amp; Tracking System</div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="rpt-filter-bar">
+              <div class="rpt-field rpt-field-wide">
+                <label><i class="ti ti-layout-list"></i> Report Template</label>
+                <select id="rpt-template" onchange="renderReportTable()">
+                  <option value="so">Sales Order Wise Labour Report</option>
+                  <option value="emp">Employee Wise Labour Report</option>
+                  <option value="dept">Department Wise Labour Report</option>
+                </select>
+              </div>
+              <div class="rpt-field rpt-field-mid">
+                <label><i class="ti ti-filter"></i> Filter Sales Order</label>
+                <select id="rpt-so-filter" onchange="renderReportTable()">
+                  <option value="all">All Sales Orders</option>
+                  <option value="SO-2026-001">SO-2026-001 — Tata Motors</option>
+                  <option value="SO-2026-002">SO-2026-002 — L&amp;T Heavy Engg.</option>
+                  <option value="SO-2026-003">SO-2026-003 — BHEL Systems</option>
+                  <option value="SO-2026-004">SO-2026-004 — Mahindra Forge</option>
+                  <option value="SO-2026-005">SO-2026-005 — Kirloskar Pumps</option>
+                </select>
+              </div>
+              <div class="rpt-field rpt-field-date">
+                <label><i class="ti ti-calendar"></i> Start Date</label>
+                <input type="date" id="rpt-start-date" onchange="renderReportTable()" />
+              </div>
+              <div class="rpt-field rpt-field-date">
+                <label><i class="ti ti-calendar"></i> End Date</label>
+                <input type="date" id="rpt-end-date" onchange="renderReportTable()" />
+              </div>
+              <div class="rpt-bar-actions">
+                <button class="rpt-btn rpt-btn-print" onclick="printReport()">
+                  <i class="ti ti-printer"></i> Print PDF
                 </button>
                 <div class="rpt-export-wrap">
-                  <button class="rpt-btn rpt-btn-primary" onclick="toggleExportMenu(event)">
-                    <i class="ti ti-download"></i> Export <i class="ti ti-chevron-down"></i>
+                  <button class="rpt-btn rpt-btn-export" onclick="toggleExportMenu(event)">
+                    <i class="ti ti-download"></i> Export
+                    <i class="ti ti-chevron-down" style="font-size:12px;margin-left:2px"></i>
                   </button>
                   <div id="rpt-export-menu" class="rpt-export-menu">
                     <div class="rpt-export-item" onclick="exportReport('csv')"><i class="ti ti-file-text"></i> CSV</div>
@@ -1896,22 +2004,24 @@ textarea.field-inp{resize:vertical;min-height:80px}
               </div>
             </div>
 
-            <!-- Report Table -->
-            <div style="background:#1a1f2e;border:1px solid #252b3b;border-radius:12px;padding:1.5rem;margin-top:1.25rem;overflow-x:auto;">
-              <div style="margin-bottom:1rem;">
-                <div id="rpt-table-title" style="font-size:16px;font-weight:700;color:#fff;"></div>
-                <div id="rpt-table-params" style="font-size:12px;color:#64748b;margin-top:3px;"></div>
-                <div id="rpt-generated-at" style="font-size:12px;color:#64748b;margin-top:2px;"></div>
+            <!-- Report Card -->
+            <div class="rpt-card">
+              <div class="rpt-card-header">
+                <div>
+                  <div class="rpt-card-title" id="rpt-table-title"></div>
+                  <div class="rpt-card-meta" id="rpt-table-params"></div>
+                </div>
+                <div class="rpt-card-generated" id="rpt-generated-at"></div>
               </div>
-              <table style="width:100%;border-collapse:collapse;font-size:14px;">
-                <thead style="background:#0f1117;">
-                  <tr id="rpt-thead-row" style="color:#94a3b8;text-align:left;"></tr>
-                </thead>
-                <tbody id="rpt-tbody"></tbody>
-              </table>
+              <div class="rpt-table-wrap">
+                <table class="rpt-table">
+                  <thead><tr id="rpt-thead-row"></tr></thead>
+                  <tbody id="rpt-tbody"></tbody>
+                </table>
+              </div>
             </div>
+
           </div>
-          <!-- ══════════════════════════════════════════════════ -->
 
           <div id="masterconfig-view" class="view-hidden">
 <div class="page-title">Master Configurations</div>
@@ -2184,8 +2294,8 @@ textarea.field-inp{resize:vertical;min-height:80px}
           <input class="field-inp" type="number" id="a-planned-hrs" placeholder="e.g. 40" min="0.5" step="0.5"/>
         </div>
         <div class="field-group">
-          <label class="field-label">Actual Hours</label>
-          <input class="field-inp" type="number" id="a-actual-hrs" placeholder="e.g. 20" min="0" step="0.5" readonly style="background:#151820;color:#94a3b8"/>
+          <label class="field-label">Actual Hours <span style="font-size:10px;color:#4b5563;font-weight:400;text-transform:none">(set by timer only)</span></label>
+          <input class="field-inp" type="number" id="a-actual-hrs" placeholder="0" min="0" step="0.0001" readonly style="background:#151820;color:#94a3b8;cursor:not-allowed" title="Actual hours are recorded automatically by the Supervisor App timer"/>
         </div>
         <div class="field-group">
           <label class="field-label">Start Date</label>
@@ -2217,39 +2327,7 @@ textarea.field-inp{resize:vertical;min-height:80px}
   </div>
 </div>
 
-<!-- ════════════════════════ MODAL: LOG HOURS ════════════════════════ -->
-<div class="modal-overlay" id="log-modal">
-  <div class="modal" style="max-width:440px">
-    <div class="modal-header">
-      <div class="modal-title">Log Hours</div>
-      <button class="modal-close" onclick="closeModal('log-modal')"><i class="ti ti-x"></i></button>
-    </div>
-    <div class="modal-body">
-      <div class="log-form">
-        <div class="field-group">
-          <label class="field-label">Assignment</label>
-          <input class="field-inp" id="log-assignment-label" readonly style="background:#151820;color:#94a3b8"/>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Date of Work <span class="req">*</span></label>
-          <input class="field-inp" type="date" id="log-date"/>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Hours Worked <span class="req">*</span></label>
-          <input class="field-inp" type="number" id="log-hrs" min="0.5" max="24" step="0.5" placeholder="e.g. 8"/>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Work Done</label>
-          <textarea class="field-inp" id="log-desc" placeholder="What was accomplished today…"></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeModal('log-modal')">Cancel</button>
-      <button class="btn-save" onclick="saveLog()"><i class="ti ti-clock-check"></i> Log Hours</button>
-    </div>
-  </div>
-</div>
+<!-- Log Hours modal removed — actual hours are recorded exclusively by the Supervisor App timer -->
 
 <!-- ════════════════════════ MODAL: SALES ORDER ════════════════════════ -->
 <div class="modal-overlay" id="order-modal">
@@ -3568,40 +3646,29 @@ textarea.field-inp{resize:vertical;min-height:80px}
         state.elapsed = Date.now() - state.startedAt;
 
         const addedHrs = elapsedToHrs(state.elapsed);
-
-        // Save to BASE.orders actual hrs for each selected employee
-        const order = BASE.orders.find((o) => o.id === soId);
-        const employees = BASE.employees[soId] || [];
         const selected = state.selectedEmps;
 
-        if (selected.size > 0 && order) {
-          // Each selected employee gets the full timer duration added to their Actual Hrs
-          employees.forEach((emp) => {
-            if (selected.has(emp.id)) {
-              emp.hrs = +(emp.hrs + addedHrs).toFixed(4);
-              // Update inline display inside the expand panel
-              const empHrEl = $(`emp-hrs-${soId}-${emp.id}`);
-              if (empHrEl) empHrEl.textContent = `${emp.hrs} hrs`;
+        if (selected.size > 0) {
+          // Write added hours into the source-of-truth: assignData
+          selected.forEach(empId => {
+            const aIdx = assignData.findIndex(a => a.soId === soId && a.empId === empId);
+            if (aIdx !== -1) {
+              assignData[aIdx].ahrs = +(assignData[aIdx].ahrs + addedHrs).toFixed(4);
+              // Mark as In Progress if it was just Assigned
+              if (assignData[aIdx].status === 'Assigned') assignData[aIdx].status = 'In Progress';
             }
           });
 
-          // SO Actual Hrs increases by the timer duration once (one work session)
-          order.ahrs = +(order.ahrs + addedHrs).toFixed(4);
+          // Now propagate to all views via syncData
+          syncData();
+          renderAssignments(assignData);
 
-          // Update Actual Hrs cell in the Supervisor table
-          document.querySelectorAll(`.sup-actual-hrs-${soId}`).forEach((el) => {
-            el.textContent = `${order.ahrs} hrs`;
+          // Update inline hrs display inside the still-open expand panel
+          const employees = BASE.employees[soId] || [];
+          employees.forEach(emp => {
+            const empHrEl = $(`emp-hrs-${soId}-${emp.id}`);
+            if (empHrEl) empHrEl.textContent = `${emp.hrs} hrs`;
           });
-
-          // Also refresh main Dashboard table row if visible
-          const mainHrCells = document.querySelectorAll(
-            `#tbl-body tr[data-order-id="${soId}"] td`,
-          );
-          if (mainHrCells.length >= 7) {
-            mainHrCells[6].textContent = `${order.ahrs} hrs`;
-            const newEff = ((order.phrs / order.ahrs) * 100).toFixed(1);
-            mainHrCells[7].textContent = `${newEff}%`;
-          }
         }
 
         // Reset timer state for next session
@@ -3621,16 +3688,15 @@ textarea.field-inp{resize:vertical;min-height:80px}
         }
         if (saveNote) {
           const mins = (addedHrs * 60).toFixed(1);
-          saveNote.innerHTML = `<i class="ti ti-circle-check"></i> +${addedHrs} hrs (${mins} min) saved to Actual Hrs`;
+          saveNote.innerHTML = `<i class="ti ti-circle-check"></i> +${addedHrs.toFixed(4)} hrs (${mins} min) saved to Actual Hrs`;
           saveNote.classList.add("show");
           setTimeout(() => saveNote.classList.remove("show"), 4000);
         }
 
-        // Re-render SO table to remove LIVE badge
+        // Re-render SO table to remove LIVE badge, restore panel
         renderSupTable();
-        document
-          .querySelector(`.sup-so-row[data-so-id="${soId}"]`)
-          .classList.add("active-so");
+        const soRow = document.querySelector(`.sup-so-row[data-so-id="${soId}"]`);
+        if (soRow) soRow.classList.add("active-so");
         $(`expand-${soId}`).classList.add("open");
         renderExpandPanel(soId);
       }
@@ -3727,9 +3793,14 @@ textarea.field-inp{resize:vertical;min-height:80px}
         const end = $("rpt-end-date").value;
 
         const titles = {
-          so: "Sales Order Wise Labour Allocation Detail",
-          emp: "Employee Wise Labour Allocation Detail",
+          so:   "Sales Order Wise Labour Allocation Detail",
+          emp:  "Employee Wise Labour Allocation Detail",
           dept: "Department Wise Labour Allocation Detail",
+        };
+        const templateLabel = {
+          so:   "Sales Order Wise Labour Report",
+          emp:  "Employee Wise Labour Report",
+          dept: "Department Wise Labour Report",
         };
         $("rpt-table-title").textContent = titles[template];
         $("rpt-table-params").textContent =
@@ -3737,70 +3808,69 @@ textarea.field-inp{resize:vertical;min-height:80px}
         $("rpt-generated-at").textContent =
           "Generated At: " + new Date().toLocaleDateString("en-IN");
 
+        const thStyle = `style="padding:12px 20px;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#475569;text-align:left;white-space:nowrap"`;
+
         if (template === "so") {
-          thead.innerHTML = `<th>SO ID</th><th>Customer</th><th>Labour Category</th><th>Personnel</th><th>Duration</th><th>Total Manhours</th><th>Labour Cost</th>`;
-          tbody.innerHTML =
-            rows
-              .map(
-                (r) => `
-      <tr>
-        <td>${r.soId}</td>
-        <td>${r.customer}</td>
-        <td>${r.cat}</td>
-        <td>${r.workers} workers</td>
-        <td>${fmtDuration(r.hrs)}</td>
-        <td>${fmtManhrs(r.workers, r.hrs)}</td>
-        <td>${fmtCost(r.workers, r.hrs, r.rate)}</td>
-      </tr>`,
-              )
-              .join("") ||
-            `<tr><td colspan="7" style="text-align:center;color:#4b5563">No records for the selected filters</td></tr>`;
+          thead.innerHTML = `
+            <th ${thStyle}>SO ID</th>
+            <th ${thStyle}>Customer</th>
+            <th ${thStyle}>Labour Category</th>
+            <th ${thStyle}>Personnel</th>
+            <th ${thStyle}>Duration</th>
+            <th ${thStyle}>Total Manhours</th>
+            <th ${thStyle}>Labour Cost</th>`;
+          tbody.innerHTML = rows.map(r => `<tr>
+            <td class="rpt-td-bold">${r.soId}</td>
+            <td>${r.customer}</td>
+            <td class="rpt-td-cat">${r.cat}</td>
+            <td>${r.workers} workers</td>
+            <td>${fmtDuration(r.hrs)}</td>
+            <td>${fmtManhrs(r.workers, r.hrs)}</td>
+            <td>${fmtCost(r.workers, r.hrs, r.rate)}</td>
+          </tr>`).join('') ||
+          `<tr><td colspan="7" class="rpt-empty"><i class="ti ti-inbox"></i>No records for the selected filters</td></tr>`;
+
         } else if (template === "emp") {
-          thead.innerHTML = `<th>Employee</th><th>SO ID</th><th>Department</th><th>Labour Category</th><th>Duration</th><th>Manhours</th><th>Labour Cost</th>`;
-          tbody.innerHTML =
-            rows
-              .map(
-                (r) => `
-      <tr>
-        <td>${r.emp}</td>
-        <td>${r.soId}</td>
-        <td>${r.dept}</td>
-        <td>${r.cat}</td>
-        <td>${fmtDuration(r.hrs)}</td>
-        <td>${fmtManhrs(1, r.hrs)}</td>
-        <td>${fmtCost(1, r.hrs, r.rate)}</td>
-      </tr>`,
-              )
-              .join("") ||
-            `<tr><td colspan="7" style="text-align:center;color:#4b5563">No records for the selected filters</td></tr>`;
+          thead.innerHTML = `
+            <th ${thStyle}>Employee</th>
+            <th ${thStyle}>SO ID</th>
+            <th ${thStyle}>Department</th>
+            <th ${thStyle}>Labour Category</th>
+            <th ${thStyle}>Duration</th>
+            <th ${thStyle}>Manhours</th>
+            <th ${thStyle}>Labour Cost</th>`;
+          tbody.innerHTML = rows.map(r => `<tr>
+            <td class="rpt-td-bold">${r.emp}</td>
+            <td>${r.soId}</td>
+            <td>${r.dept}</td>
+            <td class="rpt-td-cat">${r.cat}</td>
+            <td>${fmtDuration(r.hrs)}</td>
+            <td>${fmtManhrs(1, r.hrs)}</td>
+            <td>${fmtCost(1, r.hrs, r.rate)}</td>
+          </tr>`).join('') ||
+          `<tr><td colspan="7" class="rpt-empty"><i class="ti ti-inbox"></i>No records for the selected filters</td></tr>`;
+
         } else {
           const byDept = {};
-          rows.forEach((r) => {
-            byDept[r.dept] = byDept[r.dept] || {
-              dept: r.dept,
-              workers: 0,
-              hrs: 0,
-              cost: 0,
-            };
+          rows.forEach(r => {
+            byDept[r.dept] = byDept[r.dept] || { dept: r.dept, workers: 0, hrs: 0, cost: 0 };
             byDept[r.dept].workers += r.workers;
-            byDept[r.dept].hrs += r.workers * r.hrs;
-            byDept[r.dept].cost += r.workers * r.hrs * r.rate;
+            byDept[r.dept].hrs     += r.workers * r.hrs;
+            byDept[r.dept].cost    += r.workers * r.hrs * r.rate;
           });
-          thead.innerHTML = `<th>Department</th><th>Total Personnel</th><th>Total Manhours</th><th>Total Labour Cost</th>`;
+          thead.innerHTML = `
+            <th ${thStyle}>Department</th>
+            <th ${thStyle}>Total Personnel</th>
+            <th ${thStyle}>Total Manhours</th>
+            <th ${thStyle}>Total Labour Cost</th>`;
           const list = Object.values(byDept);
-          tbody.innerHTML =
-            list
-              .map(
-                (d) => `
-      <tr>
-        <td>${d.dept}</td>
-        <td>${d.workers} workers</td>
-        <td>${d.hrs.toFixed(2)} man-hrs</td>
-        <td>${inrFmt(Math.round(d.cost))}</td>
-      </tr>`,
-              )
-              .join("") ||
-            `<tr><td colspan="4" style="text-align:center;color:#4b5563">No records for the selected filters</td></tr>`;
+          tbody.innerHTML = list.map(d => `<tr>
+            <td class="rpt-td-bold">${d.dept}</td>
+            <td>${d.workers} workers</td>
+            <td>${d.hrs.toFixed(2)} man-hrs</td>
+            <td>${inrFmt(Math.round(d.cost))}</td>
+          </tr>`).join('') ||
+          `<tr><td colspan="4" class="rpt-empty"><i class="ti ti-inbox"></i>No records for the selected filters</td></tr>`;
         }
       }
 
@@ -3958,11 +4028,11 @@ textarea.field-inp{resize:vertical;min-height:80px}
 ══════════════════════════════════════════════════════ */
 /* ═══════════════════ DATA ═══════════════════ */
 let assignData = [
-  {id:1, soId:'SO-2026-001', soName:'Tata Motors', empId:'EMP-101', empName:'Arun Patel', dept:'Machining', skill:'Expert', phrs:40, ahrs:23, desc:'CNC machining of shaft components', status:'In Progress', start:'2026-06-01', end:'2026-06-30'},
-  {id:2, soId:'SO-2026-002', soName:'L&T Heavy Engg.', empId:'EMP-203', empName:'Ravi Kumar', dept:'Assembly', skill:'Expert', phrs:80, ahrs:26.5, desc:'Pipe fitting and assembly', status:'Completed', start:'2026-05-15', end:'2026-06-20'},
-  {id:3, soId:'SO-2026-003', soName:'BHEL Systems', empId:'EMP-307', empName:'Suresh Rao', dept:'Fabrication', skill:'Expert', phrs:60, ahrs:31, desc:'Heavy welding of structural frames', status:'In Progress', start:'2026-06-05', end:'2026-07-15'},
-  {id:4, soId:'SO-2026-001', soName:'Tata Motors', empId:'EMP-114', empName:'Meera Nair', dept:'Machining', skill:'Intermediate', phrs:30, ahrs:8, desc:'CNC operation and quality check', status:'Assigned', start:'2026-06-10', end:'2026-07-01'},
-  {id:5, soId:'SO-2026-004', soName:'Mahindra Forge', empId:'EMP-318', empName:'Pooja Menon', dept:'Fabrication', skill:'Intermediate', phrs:50, ahrs:38.5, desc:'Sheet metal fabrication tasks', status:'On Hold', start:'2026-06-01', end:'2026-07-30'},
+  {id:1, soId:'SO-2026-001', soName:'Tata Motors', empId:'EMP-101', empName:'Arun Patel', dept:'Machining', skill:'Expert', phrs:40, ahrs:0, desc:'CNC machining of shaft components', status:'Assigned', start:'2026-06-01', end:'2026-06-30'},
+  {id:2, soId:'SO-2026-002', soName:'L&T Heavy Engg.', empId:'EMP-203', empName:'Ravi Kumar', dept:'Assembly', skill:'Expert', phrs:80, ahrs:0, desc:'Pipe fitting and assembly', status:'Assigned', start:'2026-05-15', end:'2026-06-20'},
+  {id:3, soId:'SO-2026-003', soName:'BHEL Systems', empId:'EMP-307', empName:'Suresh Rao', dept:'Fabrication', skill:'Expert', phrs:60, ahrs:0, desc:'Heavy welding of structural frames', status:'Assigned', start:'2026-06-05', end:'2026-07-15'},
+  {id:4, soId:'SO-2026-001', soName:'Tata Motors', empId:'EMP-114', empName:'Meera Nair', dept:'Machining', skill:'Intermediate', phrs:30, ahrs:0, desc:'CNC operation and quality check', status:'Assigned', start:'2026-06-10', end:'2026-07-01'},
+  {id:5, soId:'SO-2026-004', soName:'Mahindra Forge', empId:'EMP-318', empName:'Pooja Menon', dept:'Fabrication', skill:'Intermediate', phrs:50, ahrs:0, desc:'Sheet metal fabrication tasks', status:'Assigned', start:'2026-06-01', end:'2026-07-30'},
 ];
 
 let salesData = [
@@ -4444,7 +4514,9 @@ function saveAssignment(){
     const idx = assignData.findIndex(x=>x.id===editingId);
     assignData[idx] = {...assignData[idx],
       soId:soVal, soName, empId:empVal, empName, dept:empDept, skill:empSkill,
-      phrs, ahrs:parseFloat(document.getElementById('a-actual-hrs').value)||0,
+      phrs,
+      // ahrs is preserved — only the Supervisor App timer can change it
+      ahrs: assignData[idx].ahrs || 0,
       desc:document.getElementById('a-desc').value.trim(),
       status:document.getElementById('a-status').value,
       start:document.getElementById('a-start').value,
@@ -4455,7 +4527,9 @@ function saveAssignment(){
     assignData.push({
       id:nextId.assign++, soId:soVal, soName, empId:empVal, empName,
       dept:empDept, skill:empSkill,
-      phrs, ahrs:parseFloat(document.getElementById('a-actual-hrs').value)||0,
+      phrs,
+      // new assignments always start with 0 actual hours
+      ahrs: 0,
       desc:document.getElementById('a-desc').value.trim(),
       status:document.getElementById('a-status').value,
       start:document.getElementById('a-start').value,
@@ -4468,29 +4542,7 @@ function saveAssignment(){
   closeModal('assign-modal');
 }
 
-/* ═══════════════════ LOG HOURS ═══════════════════ */
-function openLogModal(id){
-  const r = assignData.find(x=>x.id===id);
-  if(!r) return;
-  logTargetId = id;
-  document.getElementById('log-assignment-label').value = `${r.soId} — ${r.empName}`;
-  document.getElementById('log-date').value = new Date().toISOString().split('T')[0];
-  document.getElementById('log-hrs').value = '';
-  document.getElementById('log-desc').value = '';
-  openModal('log-modal');
-}
-
-function saveLog(){
-  const hrs = parseFloat(document.getElementById('log-hrs').value)||0;
-  if(!hrs){ toast('error','Please enter hours worked.'); return; }
-  const idx = assignData.findIndex(x=>x.id===logTargetId);
-  assignData[idx].ahrs = +(assignData[idx].ahrs + hrs).toFixed(1);
-  if(assignData[idx].status==='Assigned') assignData[idx].status='In Progress';
-  syncData();
-  renderAssignments(assignData);
-  closeModal('log-modal');
-  toast('success',`${hrs} hrs logged for ${assignData[idx].empName}`);
-}
+/* openLogModal / saveLog removed — actual hours are set exclusively by the Supervisor App timer */
 
 /* ═══════════════════ SALES ORDER CRUD ═══════════════════ */
 function clearOrderForm(){
