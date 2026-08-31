@@ -1,0 +1,74 @@
+{
+  "revision": 1786560329504,
+  "recycleRetentionDays": 30,
+  "salesOrders": [
+    {
+      "id": "SO-1001",
+      "item": "Customer A",
+      "targetQty": 25,
+      "completedQty": 0,
+      "department": "Fabrication",
+      "status": "Paused",
+      "description": "",
+      "plannedManhours": 12,
+      "plannedBudget": 5000,
+      "startDate": "",
+      "endDate": "",
+      "timerSeconds": 7200
+    }
+  ],
+  "employees": [
+    {
+      "name": "Test Employee",
+      "task": "SO-1001",
+      "department": "Fabrication",
+      "hoursClocked": 4.5,
+      "status": "Active",
+      "empId": "EMP001",
+      "category": "Welder",
+      "hourlyRate": 325,
+      "skillLevel": "Expert"
+    }
+  ],
+  "departments": [
+    {
+      "code": "D01",
+      "name": "Fabrication",
+      "description": "Fabrication station"
+    }
+  ],
+  "categories": [
+    {
+      "code": "C01",
+      "name": "Welder",
+      "hourlyRate": 325,
+      "workflows": [
+        "Welding"
+      ],
+      "department": "Fabrication"
+    }
+  ],
+  "logs": [
+    {
+      "timestamp": "12:15 AM",
+      "message": "Employee Test Employee (EMP001) registered at Fabrication department",
+      "type": "SUCCESS"
+    },
+    {
+      "timestamp": "12:15 AM",
+      "message": "New Sales Order SO-1001 created for Fabrication department",
+      "type": "INFO"
+    },
+    {
+      "timestamp": "12:15 AM",
+      "message": "New Labour Category 'Welder' (C01) added under Fabrication",
+      "type": "SUCCESS"
+    },
+    {
+      "timestamp": "12:15 AM",
+      "message": "New Department 'Fabrication' (D01) registered",
+      "type": "SUCCESS"
+    }
+  ],
+  "assignments": []
+}

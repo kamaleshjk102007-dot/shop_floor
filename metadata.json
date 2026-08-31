@@ -1,0 +1,6 @@
+{
+  "name": "ShopFloor Tracking",
+  "description": "ShopFloor Labour Tracking - Fully functional login and dashboard application with session persistence, search, activity logging, lockout timers, and interactive data visualization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
